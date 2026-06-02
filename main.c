@@ -27,12 +27,14 @@ int main (int argv, char *argc[]) {
 
     elfi->elf_header = malloc(sizeof(unsigned char) * EI_NIDENT);
     elfi->elf_etype = ET_NONE;
+    elfi->elf_emachine = EM_NONE;
+    elfi->elf_data = ELFDATANONE;
+    elfi->elf_class = ELFCLASSNONE;
 
     if (read(elfi->fd, elfi->elf_header, EI_NIDENT) != EI_NIDENT) {
         fprintf(stderr, "Error: [MAGIC_ELF] Not ELF FILE.");
         return 84;
     }
-
     // ELF FILE PARSER
     if (magic_elf(elfi) == 0) {
         fprintf(stderr, "Error: [MAGIC_ELF] Not ELF FILE.");
@@ -54,7 +56,11 @@ int main (int argv, char *argc[]) {
         close(elfi->fd);
         return 84;
     }
-    
+    if (etmachine_elf(elfi) == 0) {
+        fprintf(stderr, "Error: [DATA_ELF] Invalid Data Encoding.");
+        close(elfi->fd);
+        return 84;
+    }
     // CLEAN PROCESS
     close(elfi->fd);
     free(elfi);
