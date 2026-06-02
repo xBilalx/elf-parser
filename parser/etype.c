@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include "../include/convert_uint16.h"
+#include "../include/convert.h"
 
 int etype_elf(struct elf_info_struct* elfi) {
     unsigned char *buf = malloc(sizeof(char) * 2);

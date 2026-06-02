@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include "../include/convert_uint16.h"
+#include "../include/convert.h"
 
 const char *machine_to_string(unsigned short machine)
 {
