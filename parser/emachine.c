@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include "../include/convert_uint16.h"
+#include "../include/convert.h"
 
 const char *machine_to_string(unsigned short machine)
 {
@@ -39,11 +39,8 @@ const char *machine_to_string(unsigned short machine)
 }
 
 int etmachine_elf(struct elf_info_struct* elfi) {
-    unsigned char *buf = malloc(sizeof(char) * 2);
-    if (read(elfi->fd, buf, 2) != 2) {
-        return 0;
-    }
-    elfi->elf_emachine = convert_uint16(buf, elfi->elf_data);
+
+    elfi->elf_emachine = read_elf_u16(elfi);
 
     printf("Machine: %s (value: %u)\n",
         machine_to_string(elfi->elf_emachine),
