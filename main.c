@@ -9,6 +9,19 @@
 #include "./include/elf.h"
 #include "./parser/parser.h"
 
+int cleanup_error(struct elf_info_struct *elfi, const char *msg)
+{
+    if (msg)
+        fprintf(stderr, "%s\n", msg);
+    if (elfi) {
+        if (elfi->fd != -1)
+            close(elfi->fd);
+        free(elfi->elf_header);
+        free(elfi);
+    }
+    return 84;
+}
+
 int main (int argv, char *argc[]) {
     struct elf_info_struct* elfi = NULL;
     unsigned char test = 1;
@@ -36,31 +49,26 @@ int main (int argv, char *argc[]) {
         return 84;
     }
     // ELF FILE PARSER
-    if (magic_elf(elfi) == 0) {
-        fprintf(stderr, "Error: [MAGIC_ELF] Not ELF FILE.");
-        close(elfi->fd);
-        return 84;
-    }
-    if (class_elf(elfi) == 0) {
-        fprintf(stderr, "Error: [CLASS_ELF] Class didn't find.");
-        close(elfi->fd);
-        return 84;
-    }
-    if (data_elf(elfi) == 0) {
-        fprintf(stderr, "Error: [DATA_ELF] Invalid Data Encoding.");
-        close(elfi->fd);
-        return 84;
-    }
-    if (etype_elf(elfi) == 0) {
-        fprintf(stderr, "Error: [DATA_ELF] Invalid Data Encoding.");
-        close(elfi->fd);
-        return 84;
-    }
-    if (etmachine_elf(elfi) == 0) {
-        fprintf(stderr, "Error: [DATA_ELF] Invalid Data Encoding.");
-        close(elfi->fd);
-        return 84;
-    }
+    if (magic_elf(elfi) == 0)
+        cleanup_error(elfi, "Error: [MAGIC_ELF] Not ELF FILE.");
+    if (class_elf(elfi) == 0)
+        cleanup_error(elfi, "Error: [CLASS_ELF] Class didn't find.");
+    if (data_elf(elfi) == 0)
+        cleanup_error(elfi, "Error: [TYPE_ELF] Invalid Data encoding.");
+    if (etype_elf(elfi) == 0)
+        cleanup_error(elfi, "Error: [TYPE_ELF] Invalid Type Value.");
+    if (etmachine_elf(elfi) == 0)
+        cleanup_error(elfi, "Error: [MACHINE_ELF] Invalid Machine Value.");
+    if (version_elf(elfi) == 0)
+        cleanup_error(elfi, "");
+
+    if (elfi->elf_class == ELFCLASS32) {
+        // 32 bytes parser
+
+    } else if (elfi->elf_class == ELFCLASS64) {
+        // 64 bytes parser
+    } 
+    
     // CLEAN PROCESS
     close(elfi->fd);
     free(elfi);
