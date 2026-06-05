@@ -4,4 +4,5 @@
 
 unsigned short convert_uint16(unsigned char *buf, unsigned char elf_data);
 unsigned int convert_uint32(unsigned char *buf, unsigned char elf_data);
+unsigned long int convert_uint64(unsigned char *buf, unsigned char elf_data);
 #endif

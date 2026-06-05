@@ -24,7 +24,6 @@ int cleanup_error(struct elf_info_struct *elfi, const char *msg)
 
 int main (int argv, char *argc[]) {
     struct elf_info_struct* elfi = NULL;
-    unsigned char test = 1;
     
     elfi = malloc(sizeof(struct elf_info_struct));
     // VERIFICATION FILE
@@ -64,9 +63,11 @@ int main (int argv, char *argc[]) {
 
     if (elfi->elf_class == ELFCLASS32) {
         // 32 bytes parser
+        
 
     } else if (elfi->elf_class == ELFCLASS64) {
         // 64 bytes parser
+        entry_uint64(elfi);
     } 
     
     // CLEAN PROCESS
