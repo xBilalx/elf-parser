@@ -13,9 +13,20 @@ typedef struct elf_info_struct {
 
     // variable for 64 bytes elf files
     unsigned long int entry_uint64;
-
+    unsigned long int phoff_uint64;
+    unsigned long int shoff_uint64;
     // variable for 32 bytes elf files
     unsigned int entry_uint32;
+    unsigned int phoff_uint32;
+    unsigned int shoff_uint32;
+
+    unsigned short ehsize; // Size of ELF header
+    unsigned short phentsize; // Size of Program Header table
+    unsigned short phnum; // Number of Program Header
+    unsigned short shentsize; // Size of Section Header table
+    unsigned short shnum; // Number of Sections Header
+    unsigned short shstrndx; // Index of section header who contain section names
+
 } elf_info_t;
 
 unsigned short read_elf_u16(struct elf_info_struct *elfi);

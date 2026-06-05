@@ -1,10 +1,10 @@
-#include "../parser.h"
+#include "../header_elf.h"
 
-#include "../../include/elf.h"
+#include "../../../include/elf.h"
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include "../../include/convert.h"
+#include "../../../include/convert.h"
 
 int entry_uint64(struct elf_info_struct *elfi)
 {
