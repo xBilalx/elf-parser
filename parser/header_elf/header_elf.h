@@ -1,5 +1,5 @@
-#ifndef PARSER_H
-#define PARSER_H
+#ifndef HEADER_ELF_H
+#define HEADER_ELF_H
 
 #include "../include/elf_info.h"
 

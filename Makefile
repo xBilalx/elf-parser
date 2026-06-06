@@ -27,6 +27,10 @@ SRC	=	main.c \
 		parser/header_elf/get_shentsize.c	\
 		parser/header_elf/get_shnum.c	\
 		parser/header_elf/get_shstrndx.c	\
+		parser/init_elf_info.c	\
+		parser/header_elf/header_reader_system.c	\
+		parser/public/cleanup_error.c	\
+		parser/program/program_reader_system.c	\
 
 
 OBJ	=	$(SRC:.c=.o)
